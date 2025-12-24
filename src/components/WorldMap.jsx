@@ -38,7 +38,7 @@ const WorldMap = () => {
 
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-16">
-                {Object.values(WORLDS).map((world, index) => (
+                {Object.entries(WORLDS).map(([key, world], index) => (
                     <motion.div
                         key={world.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ const WorldMap = () => {
                         transition={{ delay: index * 0.1 }}
                         whileHover={{ y: -5, scale: 1.02 }}
                         className="group relative bg-[#1a1a1a] rounded-2xl p-8 border border-white/5 hover:border-white/20 transition-all cursor-pointer flex flex-col h-full"
-                        onClick={() => handleEnterWorld(world.id)}
+                        onClick={() => handleEnterWorld(key)}
                     >
                         {/* Status / Decor */}
                         <div

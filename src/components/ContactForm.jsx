@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useCalculator } from '../context/CalculatorContext.jsx';
 import { ArrowRight, Send } from 'lucide-react';
 import { generateSystemPDF } from '../utils/pdfGenerator.js';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
     const { nextStage, pkgTotal, efficiency, selectedModules, userProfile } = useCalculator();
@@ -26,7 +27,6 @@ const ContactForm = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call / Email sending
         const submissionData = {
             contact: formData,
             system: {
@@ -39,20 +39,45 @@ const ContactForm = () => {
             timestamp: new Date().toISOString()
         };
 
-        // Generate PDF Blob (Internal use only, do not download for visitor)
-        const pdfBlob = generateSystemPDF(submissionData, false);
+        // Prepare template parameters for EmailJS
+        // You generally pass flat objects or stringified JSON to email templates
+        const templateParams = {
+            to_name: "Social Samsara Team",
+            from_name: formData.name,
+            from_email: formData.email,
+            phone: formData.phone,
+            company: formData.company,
+            total_cost: `Rs. ${pkgTotal.totalCost.toLocaleString()}`,
+            efficiency_score: `${efficiency.score}% (${efficiency.label})`,
+            modules_summary: JSON.stringify(selectedModules, null, 2),
+            brand_context: JSON.stringify(userProfile, null, 2)
+        };
 
-        console.group("📧 MOCK EMAIL SENDING TO: samsara@exetera.in");
-        console.log("Subject: New System Configuration Lead");
-        console.log("Body:", JSON.stringify(submissionData, null, 2));
-        console.log("📎 Attachment: Social_Samsara_System.pdf", pdfBlob);
-        console.groupEnd();
+        const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-        // Simulate network delay then proceed
-        setTimeout(() => {
+        if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+            console.error("Missing EmailJS Environment Variables");
+            alert("Email service is not configured. Check your .env setup!");
             setIsSubmitting(false);
-            nextStage(); // Go to Success Screen
-        }, 1500);
+            return;
+        }
+
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+            .then((result) => {
+                console.log('EMAIL SENT SUCCESS!', result.text);
+                // Generate PDF Blob (Internal use/logger)
+                generateSystemPDF(submissionData, false);
+
+                nextStage(); // Go to Success Screen
+            }, (error) => {
+                console.error('EMAIL FAILED...', error.text);
+                alert("Failed to send email. Please try again or contact support.");
+            })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
     };
 
     return (
