@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useCalculator } from '../context/CalculatorContext.jsx';
 import { getServiceById } from '../utils/pricingEngine.js';
 import clsx from 'clsx';
-import { Zap } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 
 const EfficiencyMeter = () => {
     const { efficiency, pkgTotal, goToStage, STAGES } = useCalculator();
@@ -23,20 +23,20 @@ const EfficiencyMeter = () => {
                 >
                     <div className="flex justify-between items-center mb-3 gap-4">
                         <div className="flex items-center gap-2 text-white font-medium whitespace-nowrap">
-                            <div className="p-1.5 bg-yellow-500/20 rounded-md">
-                                <Zap className="w-4 h-4 text-yellow-500" />
+                            <div className="p-1.5 bg-purple-500/20 rounded-md">
+                                <ShoppingCart className="w-4 h-4 text-purple-400" />
                             </div>
-                            System Efficiency
+                            Cart Summary
                         </div>
                         <div className="text-right">
-                            <span className="text-xs text-gray-400 block">Current Stage</span>
+                            <span className="text-xs text-gray-400 block">System Health</span>
                             <span className="text-sm font-medium text-white">{efficiency.label}</span>
                         </div>
                     </div>
 
-                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden mb-3">
+                    <div className="h-2 bg-gray-800 rounded-full overflow-hidden mb-3">
                         <motion.div
-                            className="h-full bg-gradient-to-r from-yellow-600 to-yellow-400"
+                            className="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"
                             initial={{ width: 0 }}
                             animate={{ width: `${efficiency.score}%` }}
                             transition={{ duration: 1 }}

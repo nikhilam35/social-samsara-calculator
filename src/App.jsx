@@ -17,37 +17,41 @@ import InteractiveBackground from './components/InteractiveBackground.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import SuccessScreen from './components/SuccessScreen.jsx';
 
+import { AnimatePresence, motion } from 'framer-motion';
+
 const StageController = () => {
   const { currentStage, STAGES } = useCalculator();
 
-  // Simple render switch for now. 
-  // We can wrap these in specific layout containers if needed.
-  switch (currentStage) {
-    case STAGES.LANDING:
-      return <HeroScreen />;
-    case STAGES.PRIMING:
-      return <ContextPriming />;
-    case STAGES.WORLD_MAP:
-      return <WorldMap />;
-    case STAGES.MODULE_SELECTION:
-      return <ModuleSelection />;
-    case STAGES.LEVEL_SELECTION:
-      return <LevelSelection />;
-    case STAGES.COST_REVEAL:
-      return <CostReveal />;
-    case STAGES.PLAYGROUND:
-      return <Playground />;
-    case STAGES.RETAINER_PATH:
-      return <RetainerPath />;
-    case STAGES.CONTACT_FORM:
-      return <ContactForm />;
-    case STAGES.SUCCESS:
-      return <SuccessScreen />;
-    case STAGES.FINAL_SUMMARY:
-      return <FinalSummary />;
-    default:
-      return <div className="text-center pt-20">Stage {currentStage} Not Implemented</div>;
-  }
+  const renderStage = () => {
+    switch (currentStage) {
+      case STAGES.LANDING: return <HeroScreen />;
+      case STAGES.PRIMING: return <ContextPriming />;
+      case STAGES.WORLD_MAP: return <WorldMap />;
+      case STAGES.MODULE_SELECTION: return <ModuleSelection />;
+      case STAGES.LEVEL_SELECTION: return <LevelSelection />;
+      case STAGES.COST_REVEAL: return <CostReveal />;
+      case STAGES.PLAYGROUND: return <Playground />;
+      case STAGES.RETAINER_PATH: return <RetainerPath />;
+      case STAGES.CONTACT_FORM: return <ContactForm />;
+      case STAGES.SUCCESS: return <SuccessScreen />;
+      case STAGES.FINAL_SUMMARY: return <FinalSummary />;
+      default: return <div className="text-center pt-20">Stage {currentStage} Not Implemented</div>;
+    }
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentStage}
+        initial={{ opacity: 0, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, filter: 'blur(10px)' }}
+        transition={{ duration: 0.5 }}
+      >
+        {renderStage()}
+      </motion.div>
+    </AnimatePresence>
+  );
 };
 
 function App() {

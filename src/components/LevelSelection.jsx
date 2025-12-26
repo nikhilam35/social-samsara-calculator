@@ -26,12 +26,14 @@ const LevelSelection = () => {
 
     return (
         <div className="min-h-screen py-20 px-6 max-w-5xl mx-auto">
-            <button
-                onClick={prevStage}
-                className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-12"
-            >
-                <ArrowLeft className="w-5 h-5" /> Back to Modules
-            </button>
+            <div className="w-full flex justify-center mb-12">
+                <button
+                    onClick={prevStage}
+                    className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors"
+                >
+                    <ArrowLeft className="w-5 h-5" /> Back to Modules
+                </button>
+            </div>
 
             <motion.div
                 initial={{ opacity: 0, y: 10 }}

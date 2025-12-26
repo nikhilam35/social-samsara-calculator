@@ -30,7 +30,7 @@ const CostReveal = () => {
     };
 
     return (
-        <div className="min-h-screen py-20 px-6 max-w-4xl mx-auto flex flex-col justify-center items-center text-center">
+        <div className="min-h-screen pt-40 pb-10 px-6 max-w-4xl mx-auto flex flex-col justify-center items-center text-center">
 
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}

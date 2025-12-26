@@ -36,7 +36,7 @@ const ContextPriming = () => {
                 className="text-center mb-12"
             >
                 <span className="text-sm font-medium text-gray-500 uppercase tracking-widest mb-2 block">
-                    Step 1 • Context
+                    Step {currentQIndex + 1} • {currentQuestion.stepTitle}
                 </span>
             </motion.div>
 
@@ -76,9 +76,14 @@ const ContextPriming = () => {
                     </div>
 
                     {currentQuestion.helper && (
-                        <p className="text-center mt-6 text-gray-500 text-sm">
+                        <motion.p
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-center mt-6 text-gray-500 text-sm"
+                        >
                             {currentQuestion.helper}
-                        </p>
+                        </motion.p>
                     )}
                 </motion.div>
             </AnimatePresence>
