@@ -1,69 +1,51 @@
-// src/App.jsx
-import React from 'react';
-import { CalculatorProvider, useCalculator } from './context/CalculatorContext.jsx';
-import HeroScreen from './components/HeroScreen.jsx';
-import ContextPriming from './components/ContextPriming.jsx';
-import WorldMap from './components/WorldMap.jsx';
-import ModuleSelection from './components/ModuleSelection.jsx';
-import LevelSelection from './components/LevelSelection.jsx';
-import CostReveal from './components/CostReveal.jsx';
-import EfficiencyMeter from './components/EfficiencyMeter.jsx';
-import Playground from './components/Playground.jsx';
-import RetainerPath from './components/RetainerPath.jsx';
-import FinalSummary from './components/FinalSummary.jsx';
-
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { CalculatorProvider } from './context/CalculatorContext.jsx';
+import Navbar from './components/Navbar.jsx';
 import InteractiveBackground from './components/InteractiveBackground.jsx';
 
-import ContactForm from './components/ContactForm.jsx';
-import SuccessScreen from './components/SuccessScreen.jsx';
+// Pages
+import Home from './pages/Home.jsx';
+import Why from './pages/Why.jsx';
+import About from './pages/About.jsx';
+import Contact from './pages/Contact.jsx';
+import CalculatorWrapper from './components/CalculatorWrapper.jsx';
 
-import { AnimatePresence, motion } from 'framer-motion';
+// Scroll to top component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
 
-const StageController = () => {
-  const { currentStage, STAGES } = useCalculator();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  const renderStage = () => {
-    switch (currentStage) {
-      case STAGES.LANDING: return <HeroScreen />;
-      case STAGES.PRIMING: return <ContextPriming />;
-      case STAGES.WORLD_MAP: return <WorldMap />;
-      case STAGES.MODULE_SELECTION: return <ModuleSelection />;
-      case STAGES.LEVEL_SELECTION: return <LevelSelection />;
-      case STAGES.COST_REVEAL: return <CostReveal />;
-      case STAGES.PLAYGROUND: return <Playground />;
-      case STAGES.RETAINER_PATH: return <RetainerPath />;
-      case STAGES.CONTACT_FORM: return <ContactForm />;
-      case STAGES.SUCCESS: return <SuccessScreen />;
-      case STAGES.FINAL_SUMMARY: return <FinalSummary />;
-      default: return <div className="text-center pt-20">Stage {currentStage} Not Implemented</div>;
-    }
-  };
-
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentStage}
-        initial={{ opacity: 0, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, filter: 'blur(10px)' }}
-        transition={{ duration: 0.5 }}
-      >
-        {renderStage()}
-      </motion.div>
-    </AnimatePresence>
-  );
+  return null;
 };
 
 function App() {
   return (
     <CalculatorProvider>
-      <div className="min-h-screen bg-[#121212] text-white font-sans selection:bg-purple-500/30 relative">
-        <InteractiveBackground />
-        <div className="relative z-10">
-          <StageController />
+      <Router>
+        <ScrollToTop />
+        <div className="min-h-screen bg-[#121212] text-white font-sans selection:bg-purple-500/30 relative">
+
+          <Routes>
+            <Route path="/calculator" element={<CalculatorWrapper />} />
+            <Route path="*" element={
+              <>
+                <InteractiveBackground />
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/why" element={<Why />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </>
+            } />
+          </Routes>
         </div>
-        <EfficiencyMeter />
-      </div>
+      </Router>
     </CalculatorProvider>
   );
 }

@@ -110,7 +110,7 @@ const InteractiveBackground = () => {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed inset-0 z-0 bg-[#0a0a0a]" // Darker premium background
+            className="fixed inset-0 z-[5] pointer-events-none" // Transparent, high z-index to sit on top of background
             style={{ pointerEvents: 'none' }}
         />
     );
