@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import { useCalculator } from '../context/CalculatorContext.jsx';
 import { CheckCircle, ArrowLeft } from 'lucide-react';
 
+import { useNavigate } from 'react-router-dom';
+
 const SuccessScreen = () => {
     const { goToStage, STAGES } = useCalculator();
+    const navigate = useNavigate();
 
     const handleHome = () => {
-        // Optimally, we might want to reset state here, but for now simple navigation is fine.
-        window.location.reload(); // Hard reset is often cleaner for "Back to Home" to clear all state
+        navigate('/');
     };
 
     return (
