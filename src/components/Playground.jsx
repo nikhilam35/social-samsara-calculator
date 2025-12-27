@@ -25,7 +25,7 @@ const Playground = () => {
             <div className="flex-1">
                 <button
                     onClick={() => goToStage(STAGES.WORLD_MAP)}
-                    className="text-gray-500 hover:text-white transition-colors mb-8"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full text-gray-300 hover:text-white transition-all mb-8 shadow-lg backdrop-blur-sm"
                 >
                     &larr; Add more modules
                 </button>
@@ -113,7 +113,7 @@ const Playground = () => {
                     {Object.keys(selectedModules).length >= 1 && (
                         <button
                             onClick={handleContinue}
-                            className="w-full py-4 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-colors flex justify-center items-center gap-2"
+                            className="w-full py-4 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors flex justify-center items-center gap-2"
                         >
                             Analyze Stability <ArrowRight className="w-5 h-5" />
                         </button>

@@ -4,12 +4,19 @@ import { motion } from 'framer-motion';
 import { COPY } from '../data/copy.js';
 import { useCalculator } from '../context/CalculatorContext.jsx';
 import { ArrowRight } from 'lucide-react';
+import Navbar from './Navbar.jsx';
+
 const HeroScreen = () => {
     const { nextStage } = useCalculator();
     const { headline, subtext, cta, secondary } = COPY.LANDING;
 
     return (
         <div className="relative h-screen w-full flex flex-col justify-center items-center text-center px-6 overflow-hidden">
+            {/* Header / Navbar */}
+            <div className="absolute top-0 left-0 w-full z-50">
+                <Navbar />
+            </div>
+
             {/* Animated Background */}
 
             <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">

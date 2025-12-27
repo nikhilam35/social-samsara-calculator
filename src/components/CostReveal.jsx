@@ -68,7 +68,7 @@ const CostReveal = () => {
                 {/* Breakdown Toggle */}
                 <button
                     onClick={() => setShowBreakdown(!showBreakdown)}
-                    className="flex items-center gap-2 mx-auto text-sm text-gray-500 hover:text-white transition-colors mb-6"
+                    className="flex items-center gap-2 mx-auto text-sm text-gray-300 hover:text-white transition-all mb-6 px-4 py-2 bg-white/5 border border-white/10 rounded-full hover:bg-white/10"
                 >
                     <Info className="w-4 h-4" /> Why this costs this much
                 </button>
@@ -94,7 +94,7 @@ const CostReveal = () => {
 
                 <button
                     onClick={handleConfirm}
-                    className="w-full py-4 bg-white text-black rounded-lg text-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-white text-black rounded-full text-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
                 >
                     <CheckCircle className="w-5 h-5" />
                     Continue Building
@@ -103,7 +103,7 @@ const CostReveal = () => {
 
             <button
                 onClick={() => goToStage(STAGES.LEVEL_SELECTION)}
-                className="mt-8 text-gray-500 hover:text-white transition-colors"
+                className="mt-8 flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full text-gray-300 hover:text-white transition-all shadow-lg backdrop-blur-sm"
             >
                 Change Level
             </button>

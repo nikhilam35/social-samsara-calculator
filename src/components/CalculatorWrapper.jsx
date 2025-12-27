@@ -58,7 +58,7 @@ const CalculatorWrapper = () => {
                     </motion.div>
                 </AnimatePresence>
             </div>
-            <EfficiencyMeter />
+            {currentStage < STAGES.RETAINER_PATH && <EfficiencyMeter />}
         </div>
     );
 };

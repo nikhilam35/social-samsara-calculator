@@ -33,9 +33,9 @@ const ModuleSelection = () => {
             >
                 <button
                     onClick={handleBack}
-                    className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-6"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full text-gray-300 hover:text-white transition-all mb-8 shadow-lg backdrop-blur-sm"
                 >
-                    <ArrowLeft className="w-5 h-5" /> Back to System Map
+                    <ArrowLeft className="w-4 h-4" /> Back to System Map
                 </button>
                 <h2 className="text-4xl md:text-5xl font-light mb-4" style={{ color: world.color }}>
                     {world.name}
@@ -72,7 +72,7 @@ const ModuleSelection = () => {
                             <button
                                 onClick={() => handleSelectModule(service.id)}
                                 className={`
-                                    w-full py-3 rounded-lg border font-medium transition-all flex items-center justify-center gap-2
+                                    w-full py-3 rounded-full border font-medium transition-all flex items-center justify-center gap-2
                                     ${isSelected
                                         ? 'bg-green-500/20 border-green-500/50 text-green-400'
                                         : 'border-white/20 hover:bg-white hover:text-black hover:border-white'

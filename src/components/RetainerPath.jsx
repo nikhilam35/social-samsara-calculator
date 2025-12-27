@@ -70,7 +70,7 @@ const RetainerPath = () => {
 
                     <button
                         onClick={nextStage} // Moves to Stage 10 (Contact Form)
-                        className="w-full py-4 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
                     >
                         Choose System Path <ArrowRight className="w-5 h-5" />
                     </button>

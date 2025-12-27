@@ -29,9 +29,9 @@ const LevelSelection = () => {
             <div className="w-full flex justify-center mb-12">
                 <button
                     onClick={prevStage}
-                    className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full text-gray-300 hover:text-white transition-all shadow-lg backdrop-blur-sm"
                 >
-                    <ArrowLeft className="w-5 h-5" /> Back to Modules
+                    <ArrowLeft className="w-4 h-4" /> Back to Modules
                 </button>
             </div>
 

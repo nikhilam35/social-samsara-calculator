@@ -27,7 +27,7 @@ const WorldMap = () => {
                 <div className="mb-6">
                     <button
                         onClick={prevStage}
-                        className="text-sm text-gray-500 hover:text-white flex items-center gap-2 mx-auto transition-colors"
+                        className="text-sm text-gray-300 hover:text-white flex items-center gap-2 mx-auto transition-all px-5 py-2.5 bg-white/5 hover:bg-white/15 border border-white/10 rounded-full shadow-lg backdrop-blur-sm"
                     >
                         Start Over
                     </button>

@@ -88,9 +88,10 @@ const ContactForm = () => {
                 className="bg-[#1e1e1e] border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm bg-opacity-90"
             >
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl md:text-4xl font-light mb-4 text-white">Save Your System</h2>
+                    <h2 className="text-3xl md:text-4xl font-light mb-4 text-white">Save Your Time</h2>
                     <p className="text-gray-400">
-                        Enter your details to receive your custom efficiency report and quote.
+                        We'll review your custom build and reach out.<br />
+                        Let us handle the execution so you can reclaim your time.
                     </p>
                 </div>
 
@@ -150,7 +151,7 @@ const ContactForm = () => {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-4 bg-white text-black rounded-xl font-medium hover:bg-gray-200 transition-all flex items-center justify-center gap-2 mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full py-4 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-all flex items-center justify-center gap-2 mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {isSubmitting ? (
                             <span>Generating Report...</span>

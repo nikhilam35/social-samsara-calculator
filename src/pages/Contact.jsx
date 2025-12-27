@@ -9,10 +9,31 @@ const Contact = () => {
         message: ''
     });
 
-    const handleSubmit = (e) => {
+    const [status, setStatus] = useState(null); // null, 'submitting', 'success', 'error'
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Placeholder for form submission logic
-        alert('Message sent! (This involves backend integration)');
+        setStatus('submitting');
+
+        try {
+            const response = await fetch('https://samsara.exetera.in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            setStatus('error');
+        }
     };
 
     const handleChange = (e) => {
@@ -116,6 +137,11 @@ const Contact = () => {
                             {/* Ripple Effect Ring (Rounded lg for form button) */}
                             <div className="absolute inset-0 rounded-lg border border-white opacity-0 group-hover:animate-ping pointer-events-none" />
                         </motion.button>
+                        <div className="mt-4 text-center">
+                            {status === 'submitting' && <p className="text-gray-400">Sending...</p>}
+                            {status === 'success' && <p className="text-green-400">Message sent successfully! We'll be in touch.</p>}
+                            {status === 'error' && <p className="text-red-400">Something went wrong. Please try again later.</p>}
+                        </div>
                     </form>
                 </motion.div>
             </div>
