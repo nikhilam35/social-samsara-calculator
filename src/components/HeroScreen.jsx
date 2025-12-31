@@ -11,7 +11,7 @@ const HeroScreen = () => {
     const { headline, subtext, cta, secondary } = COPY.LANDING;
 
     return (
-        <div className="relative h-[80vh] w-full flex flex-col justify-center items-center text-center px-6 overflow-hidden pt-32">
+        <div className="relative h-screen w-full flex flex-col justify-center items-center text-center px-6 overflow-hidden">
             {/* Header / Navbar */}
             <div className="absolute top-0 left-0 w-full z-50">
                 <Navbar />
