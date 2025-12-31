@@ -15,9 +15,7 @@ const HeroBackground = () => {
             { r: 0, g: 200, b: 255 },
             { r: 50, g: 255, b: 50 },
             // Occasional Purple
-            { r: 147, g: 51, b: 234 },
-            // Samsara Red
-            { r: 255, g: 20, b: 60 }
+            { r: 147, g: 51, b: 234 }
         ];
 
         let time = 0;
@@ -60,6 +58,10 @@ const HeroBackground = () => {
             ctx.fillStyle = '#050505';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Draw Stars
+            // (Optional: keeps the space vibe intact)
+            // ... (Skipping stars for cleaner aurora focus if desired, or keep simple)
+
             // Global composite for blending light
             ctx.globalCompositeOperation = 'screen';
 
@@ -67,8 +69,6 @@ const HeroBackground = () => {
             drawAurora(canvas.height * 0.4, colorPalettes[0], 0.5, 60, 0.002);
             drawAurora(canvas.height * 0.5, colorPalettes[1], 0.7, 80, 0.003);
             drawAurora(canvas.height * 0.3, colorPalettes[3], 0.4, 100, 0.001);
-            // Add red layer
-            drawAurora(canvas.height * 0.6, colorPalettes[4], 0.6, 70, 0.0025);
 
             ctx.globalCompositeOperation = 'source-over';
 
