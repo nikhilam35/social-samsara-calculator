@@ -8,7 +8,9 @@ import HeroBackground from '../components/HeroBackground';
 const Home = () => {
     const navigate = useNavigate();
 
-
+    const brandLogos = Array.from({ length: 21 }, (_, i) =>
+        `https://www.exetera.in/assets/brands/logos-${i.toString().padStart(2, '0')}.png`
+    );
 
     return (
         <div className="min-h-screen flex flex-col relative">
@@ -94,33 +96,35 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Logos Section */}
-            <section className="py-20 border-t border-white/10 z-10 relative bg-black overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 text-center mb-12">
+            {/* Logos Section - Carousel */}
+            <section className="py-20 border-t border-white/10 z-10 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 text-center mb-10">
                     <p className="text-sm font-medium text-gray-500 uppercase tracking-widest">Trusted by the Brands You Know</p>
                 </div>
 
-                {/* Infinite Carousel */}
-                <div className="relative flex overflow-hidden w-full mask-linear-fade">
-                    <motion.div
-                        className="flex gap-20 items-center flex-nowrap"
-                        animate={{ x: "-50%" }}
-                        transition={{
-                            ease: "linear",
-                            duration: 30, // Adjust speed as needed
-                            repeat: Infinity,
-                        }}
-                    >
-                        {/* Duplicate the image multiple times to ensure seamless loop */}
-                        {[...Array(4)].map((_, i) => (
-                            <img
-                                key={i}
-                                src="/brand-logos.png"
-                                alt="Brand Logos"
-                                className="h-16 md:h-20 w-auto object-contain max-w-none opacity-60 grayscale hover:grayscale-0 transition-all duration-300"
-                            />
-                        ))}
-                    </motion.div>
+                <div className="relative w-full overflow-hidden">
+                    <div className="flex w-max">
+                        <motion.div
+                            className="flex gap-16 px-8"
+                            animate={{ x: "-50%" }}
+                            transition={{
+                                duration: 40,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                        >
+                            {/* Duplicate list for seamless loop */}
+                            {[...brandLogos, ...brandLogos].map((src, i) => (
+                                <div key={i} className="flex-shrink-0 grayscale transition-all duration-500 hover:filter-none opacity-60 hover:opacity-100">
+                                    <img
+                                        src={src}
+                                        alt="brand logo"
+                                        className="h-12 md:h-16 w-auto object-contain pointer-events-none"
+                                    />
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
