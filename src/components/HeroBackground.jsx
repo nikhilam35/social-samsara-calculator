@@ -9,90 +9,74 @@ const HeroBackground = () => {
         let animationFrameId;
 
         // Configuration
-        const blobCount = 5;
-        const blobs = [];
-        const colors = [
-            { r: 76, g: 29, b: 149 },   // Deep Purple
-            { r: 59, g: 130, b: 246 },  // Blue
-            { r: 147, g: 51, b: 234 },  // Purple
-            { r: 236, g: 72, b: 153 },  // Pink
-            { r: 30, g: 58, b: 138 }    // Dark Blue
+        const colorPalettes = [
+            // Green/Teal Aurora
+            { r: 0, g: 255, b: 128 },
+            { r: 0, g: 200, b: 255 },
+            { r: 50, g: 255, b: 50 },
+            // Occasional Purple
+            { r: 147, g: 51, b: 234 }
         ];
 
-        class Blob {
-            constructor(canvasWidth, canvasHeight) {
-                this.radius = Math.random() * 200 + 300; // Large blobs
-                this.x = Math.random() * canvasWidth;
-                this.y = Math.random() * canvasHeight;
-                this.vx = (Math.random() - 0.5) * 0.5; // Slow movement
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.alpha = Math.random() * 0.3 + 0.1; // Low opacity
-            }
-
-            update(width, height) {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Bounce off walls (with buffer)
-                if (this.x < -this.radius) this.vx = Math.abs(this.vx);
-                if (this.x > width + this.radius) this.vx = -Math.abs(this.vx);
-                if (this.y < -this.radius) this.vy = Math.abs(this.vy);
-                if (this.y > height + this.radius) this.vy = -Math.abs(this.vy);
-            }
-
-            draw(ctx) {
-                ctx.beginPath();
-                // Create a radial gradient for soft edges
-                const gradient = ctx.createRadialGradient(
-                    this.x, this.y, 0,
-                    this.x, this.y, this.radius
-                );
-
-                const { r, g, b } = this.color;
-                gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${this.alpha})`);
-                gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-
-                ctx.fillStyle = gradient;
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        let time = 0;
 
         const resize = () => {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight; // Full screen or parent height
+            canvas.height = window.innerHeight;
         };
 
-        const init = () => {
-            resize();
-            for (let i = 0; i < blobCount; i++) {
-                blobs.push(new Blob(canvas.width, canvas.height));
+        const drawAurora = (yOffset, color, speed, amplitude, frequency) => {
+            ctx.beginPath();
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            // Fade in/out for clarity
+            gradient.addColorStop(0, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+            gradient.addColorStop(0.5, `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`);
+            gradient.addColorStop(1, `rgba(${color.r}, ${color.g}, ${color.b}, 0)`);
+
+            ctx.fillStyle = gradient;
+
+            // Draw a wave across the screen
+            ctx.moveTo(0, canvas.height);
+            for (let x = 0; x <= canvas.width; x += 20) {
+                // Combine multiple sine waves for organic "curtain" feel
+                const y = yOffset +
+                    Math.sin(x * frequency + time * speed) * amplitude +
+                    Math.cos(x * frequency * 0.5 + time * speed * 0.8) * (amplitude * 0.5);
+                ctx.lineTo(x, y);
             }
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
+            ctx.fill();
         };
 
         const animate = () => {
+            time += 0.01;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Dark base background
-            ctx.fillStyle = '#0a0a0a';
+            // Dark night sky background
+            ctx.fillStyle = '#050505';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Global composite for blending effect
+            // Draw Stars
+            // (Optional: keeps the space vibe intact)
+            // ... (Skipping stars for cleaner aurora focus if desired, or keep simple)
+
+            // Global composite for blending light
             ctx.globalCompositeOperation = 'screen';
 
-            blobs.forEach(blob => {
-                blob.update(canvas.width, canvas.height);
-                blob.draw(ctx);
-            });
+            // Draw Aurora Layers
+            drawAurora(canvas.height * 0.4, colorPalettes[0], 0.5, 60, 0.002);
+            drawAurora(canvas.height * 0.5, colorPalettes[1], 0.7, 80, 0.003);
+            drawAurora(canvas.height * 0.3, colorPalettes[3], 0.4, 100, 0.001);
 
-            ctx.globalCompositeOperation = 'source-over'; // Reset
+            ctx.globalCompositeOperation = 'source-over';
 
             animationFrameId = requestAnimationFrame(animate);
         };
 
         window.addEventListener('resize', resize);
-        init();
+        resize();
         animate();
 
         return () => {
@@ -105,7 +89,7 @@ const HeroBackground = () => {
         <canvas
             ref={canvasRef}
             className="absolute inset-0 w-full h-full"
-            style={{ filter: 'blur(60px)' }} // Heavy blur for "nebula" effect
+            style={{ filter: 'blur(30px)' }} // Increased blur for softer aurora
         />
     );
 };

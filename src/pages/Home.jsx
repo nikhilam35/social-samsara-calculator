@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <div className="min-h-screen pt-20 flex flex-col relative">
             {/* Hero Section */}
-            <section className="flex-grow flex items-center justify-center relative overflow-hidden px-6 py-20 min-h-[80vh]">
+            <section className="flex-grow flex items-center justify-center relative overflow-hidden px-6 py-20 h-[80vh]">
                 {/* Custom Gradient Background */}
                 <div className="absolute inset-0 z-0">
                     <HeroBackground />
